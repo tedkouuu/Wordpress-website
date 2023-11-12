@@ -22,7 +22,9 @@
               <li><a href="#">Programs</a></li>
               <li><a href="#">Events</a></li>
               <li><a href="#">Campuses</a></li>
-              <li><a href="#">Blog</a></li>
+              
+              <!-- As long as the current url has to do with post type of post, that means it's related to the Blog -->
+              <li <?php if (get_post_type() == 'post') echo 'class="current-menu-item"'?>><a href="<?php  echo site_url('/blog') ?>">Blog</a></li>
             </ul>
           </nav>
           <div class="site-header__util">
