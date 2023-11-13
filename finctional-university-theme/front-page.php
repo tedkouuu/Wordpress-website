@@ -34,7 +34,7 @@
                 'key' => 'event_date',
                 'compare' => '>=',
                 'value' => $today,
-                'type' => 'numeric'
+                'type' => 'numeric  '
               )
             )
           ));
