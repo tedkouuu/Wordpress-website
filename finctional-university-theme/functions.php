@@ -19,6 +19,31 @@ function university_features(){
 add_action('after_setup_theme', 'university_features');
 
 
+/* 
+Before Wordpress sends it's query to the DB, it will give
+this function the chance to adjust the query
+*/ 
+function university_adjust_queries($query){
+    // Only if you are not in the admin and are on the archive for event
+    if (!is_admin() AND is_post_type_archive('event') AND $query->is_main_query()) {
+    // Filter the events by the most rapid coming and exclude the ones in the past
+    $today = date('Ymd');
+    $query->set('meta_key', 'event_date');
+    $query->set('orderby', 'meta_value_num');
+    $query->set('order', 'ASC');
+    $query->set('meta_query', array(
+        array(
+        'key' => 'event_date',
+        'compare' => '>=',
+        'value' => $today,
+        'type' => 'numeric  '
+      )
+        ));
+   }
+}
+
+add_action('pre_get_posts', 'university_adjust_queries');
+
 ?> 
 
 
