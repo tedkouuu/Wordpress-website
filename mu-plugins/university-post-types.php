@@ -6,6 +6,7 @@ they are automatically enabled. -->
 <?php function university_post_types() {
     register_post_type('event', array(
         // Describe what kind of post type you want
+        'has_archive' => true,
         'public' => true,
         'labels' => array(
             'name' => 'Events',
