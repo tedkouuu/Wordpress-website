@@ -18,9 +18,25 @@
           <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
 
           <?php 
+          $today = date('Ymd');
           $homepageEvents = new WP_Query(array(
-            'posts_per_page' => 2,
-            'post_type' => 'event'
+            'posts_per_page' => -1,
+            'post_type' => 'event',
+            // meta_value_num is how to tell Wordpress to order by a meta_key(custom field)
+            'meta_key' => 'event_date',
+            'orderby' => 'meta_value_num',
+            'order' => 'ASC',
+            'meta_query' => array(
+              /* Specify filters:
+              Only show posts if the event date is >= of today's date
+              */
+              array(
+                'key' => 'event_date',
+                'compare' => '>=',
+                'value' => $today,
+                'type' => 'numeric  '
+              )
+            )
           ));
 
           while($homepageEvents->have_posts()){
@@ -29,7 +45,6 @@
           <div class="event-summary">
             <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
               <span class="event-summary__month"><?php 
-              // TODO: FIX
                 $eventDate = new DateTime(get_field('event_date'));
                 echo $eventDate->format('M')
               ?></span>
