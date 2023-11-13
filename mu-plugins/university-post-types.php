@@ -6,6 +6,8 @@ they are automatically enabled. -->
 <?php function university_post_types() {
     register_post_type('event', array(
         // Describe what kind of post type you want
+        'show_in_rest' => true,
+        'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'events'),
         'has_archive' => true,
         'public' => true,
