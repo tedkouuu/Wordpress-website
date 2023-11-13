@@ -11,7 +11,7 @@ they are automatically enabled. -->
         'rewrite' => array('slug' => 'events'),
         'has_archive' => true,
         'public' => true,
-        'labels' => array(
+        'labels' => array(  
             'name' => 'Events',
             'add_new_item' => 'Add New Event',
             'edit_item' => 'Edit Event',
