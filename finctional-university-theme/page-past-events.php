@@ -22,15 +22,10 @@ get_header(); ?>
      $pastEvents = new WP_Query(array(
           'paged' =>  get_query_var('paged', 1),
           'post_type' => 'event',
-         // meta_value_num is how to tell Wordpress to order by a meta_key(custom field)
           'meta_key' => 'event_date',
           'orderby' => 'meta_value_num',
           'order' => 'ASC',
           'meta_query' => array(
-         /* 
-         Specify filters:
-         Only show posts if the event date is >= of today's date
-          */
           array(
            'key' => 'event_date',
            'compare' => '<',

@@ -38,7 +38,6 @@ the_post(); ?>
       'child_of' => get_the_ID()
     ));
 
-    // If the current page has a parent or is a parent
     if ($theParent or $testArray) { ?> 
 
       <div class="page-links">
