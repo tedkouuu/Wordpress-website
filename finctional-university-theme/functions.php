@@ -11,9 +11,15 @@ function university_files() {
 
 add_action('wp_enqueue_scripts', 'university_files');
 
+// Here I say what features should Wordpress support
 function university_features(){
-    add_theme_support('title-tag');
-
+    add_theme_support('title-tag'); 
+    add_theme_support('post-thumbnails');
+    // 400px wide, 260px heigth, cropped
+    add_image_size('professorLandscape', 400, 260, true);
+    add_image_size('professorPortrait', 480, 650, true);
+    // I will use this image size for the background of every page
+    add_image_size('pageBanner', 1500, 350, true);
 }
 
 add_action('after_setup_theme', 'university_features');
