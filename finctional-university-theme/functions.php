@@ -1,4 +1,41 @@
 <?php 
+// $args = NULL makes the argument optional
+function pageBanner($args = NULL) {
+
+    // If title was not provided
+    if (!isset($args['title'])) {
+      $args['title'] = get_the_title();
+    }
+
+    // If subtitle was not provided
+    if (!isset($args['subtitle'])) {
+      $args['subtitle'] = get_field('page_banner_subtitle');
+    }
+
+    // If an argument was not passed for the photo
+    if (!isset($args['photo'])) {
+      // If there a background image is already set
+      if (get_field('page_banner_background_image') AND !is_archive() AND !is_home() ) {
+        $args['photo'] = get_field('page_banner_background_image')['sizes']['pageBanner'];
+      } else {
+        // Fallback
+        $args['photo'] = get_theme_file_uri('/images/ocean.jpg');
+      }
+    }
+    ?>
+
+    <div class="page-banner">
+  <!-- How to display the dynamic background image: -->
+  <div class="page-banner__bg-image" style="background-image: url(<?php echo $args['photo']; ?>);"></div>
+  <div class="page-banner__content container container--narrow">
+    <h1 class="page-banner__title"><?php echo $args['title'] ?></h1>
+    <div class="page-banner__intro">
+      <!-- Using the dynamic field for subtitles -->
+      <p><?php echo $args['subtitle']; ?></p>
+    </div>
+  </div>
+</div>
+<?php }
 
 function university_files() {
     wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));
