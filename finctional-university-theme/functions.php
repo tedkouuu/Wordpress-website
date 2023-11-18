@@ -38,7 +38,7 @@ function pageBanner($args = NULL) {
 <?php }
 
 function university_files() {
-    wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=google api key' , NULL, '1.0', true);    
+    wp_enqueue_script('googleMap', '//maps.googleapis.com/maps/api/js?key=map api key' , NULL, '1.0', true);    
     wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));
     wp_enqueue_style('university_extra_styles', get_theme_file_uri('/build/index.css'));
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -64,6 +64,11 @@ add_action('after_setup_theme', 'university_features');
 
 
 function university_adjust_queries($query){
+
+    if (!is_admin() AND is_post_type_archive('campus') AND $query->is_main_query()) {
+    $query->set('posts_per_page', -1);
+
+    }
 
     if (!is_admin() AND is_post_type_archive('program') AND $query->is_main_query()) {
         $query->set('orderby', 'title');
@@ -92,7 +97,7 @@ add_action('pre_get_posts', 'university_adjust_queries');
 
 
 function universityMapKey($api) {
-  $api['key'] = 'google api key';
+  $api['key'] = 'map api key';
   return $api;
 }
 // acf(Advanced Custom Fields)
